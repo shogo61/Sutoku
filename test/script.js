@@ -20,7 +20,6 @@ for(let j=0; j<9; j++){
   can[i][j] = ten;
   }
 }
-// console.log()
 
 // 問題が０でない部分は候補が一つなので上書き
 for(let i=0;i<9;i++){
@@ -99,7 +98,3 @@ while(cnt<3){
   cnt+=1;
 }
 console.log(can)
-
-
-
-
