@@ -20,19 +20,18 @@ function Solve() {
       }
     }
   }
-  console.log(problem)
 
-  var problem = [
-    [3, 8, 1, 2, 9, 5, 4, 7, 6],
-    [6, 5, 2, 0, 4, 7, 0, 3, 9],
-    [9, 4, 7, 6, 3, 0, 2, 5, 0],
-    [1, 0, 9, 5, 0, 4, 0, 6, 3],
-    [4, 3, 6, 7, 0, 9, 5, 2, 0],
-    [8, 0, 5, 3, 6, 0, 0, 9, 4],
-    [7, 9, 8, 4, 5, 3, 6, 1, 2],
-    [5, 6, 3, 0, 0, 0, 9, 4, 7],
-    [2, 1, 4, 9, 7, 6, 3, 8, 5]
-  ]
+  // var problem = [
+  //   [3, 8, 1, 2, 9, 5, 4, 7, 6],
+  //   [6, 5, 2, 0, 4, 7, 0, 3, 9],
+  //   [9, 4, 7, 6, 3, 0, 2, 5, 0],
+  //   [1, 0, 9, 5, 0, 4, 0, 6, 3],
+  //   [4, 3, 6, 7, 0, 9, 5, 2, 0],
+  //   [8, 0, 5, 3, 6, 0, 0, 9, 4],
+  //   [7, 9, 8, 4, 5, 3, 6, 1, 2],
+  //   [5, 6, 3, 0, 0, 0, 9, 4, 7],
+  //   [2, 1, 4, 9, 7, 6, 3, 8, 5]
+  // ]
 
   // 三次元配列の生成
   var can = [];
@@ -156,107 +155,100 @@ function Solve() {
   }
   // console.log(can)
   RandomSearch(can);
+
+  
 }
 
 // 重複チェック
 // 参照:https://pisuke-code.com/js-check-duplicated-array-values/
-function existsSameValue(a){
+function existsSameValue(a) {
   var s = new Set(a);
-  return s.size != a.length;
+  return s.size == a.length;
 }
-//重複があるとtrueを返す
+//重複があるとfalseを返す
 
 // 一つに絞れない場合、乱数で探す
-function RandomSearch(can){
+function RandomSearch(can) {
   var flag = true;
   var cnt = 0;
-  label:while(flag){
+  while (flag) {
     cnt += 1;
     // 候補がいくつかある場合、乱数で候補を決める
-    for(let i=0;i<9;i++){
-      for(let j=0;j<9;j++){
-        if(can[i][j].length != undefined){
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        if (can[i][j].length != undefined) {
           var idx = Math.floor(Math.random() * can[i][j].length)
-          can[i][j] = can[i][j][idx]
+          problem[i][j] = can[i][j][idx];
         }
       }
     }
 
+    // console.log(CorCnt)
     var CorCnt = 0;
+    // CorCnt = 0
 
     //横の重複チェック
-    for(let i=0;i<9;i++){
-      if(existsSameValue(can[i])){
-        CorCnt += 1;
-      }else{
-        continue label;
+    for (let i = 0; i < 9; i++) {
+      if (existsSameValue(problem[i])) {
+        CorCnt++;
       }
     }
 
     //縦の重複チェック
     var box = []
-    for(let i=0;i<9;i++){
-      for(let j=0;j<9;j++){
-        box.push(can[j][i])
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        box.push(problem[j][i])
       }
-      if(existsSameValue(box)){
-        CorCnt += 1;
-      }else{
-        continue label;
+      if (existsSameValue(box)) {
+        CorCnt++;
       }
       box = [];
     }
 
     var start_i = 0;
     var stop_i = 3;
-    for(let bCnt=0;bCnt<3;bCnt++){
+    for (let bCnt = 0; bCnt < 3; bCnt++) {
       var box1 = [];
       var box2 = [];
       var box3 = [];
-      for(start_i;start_i<stop_i;start_i++){
-        for(let j=0;j<3;j++){
-          box1.push(can[start_i][j]);
+      for (start_i; start_i < stop_i; start_i++) {
+        for (let j = 0; j < 3; j++) {
+          box1.push(problem[start_i][j]);
         }
-        for(let j=3;j<6;j++){
-          box2.push(can[start_i][j]);
+        for (let j = 3; j < 6; j++) {
+          box2.push(problem[start_i][j]);
         }
-        for(let j=6;j<9;j++){
-          box3.push(can[start_i][j]);
+        for (let j = 6; j < 9; j++) {
+          box3.push(problem[start_i][j]);
         }
       }
 
-      if(existsSameValue(box1)){
-        CorCnt+=1;
-      }else{
-        continue label;
+      if (existsSameValue(box1)) {
+        CorCnt++;
       }
-      if(existsSameValue(box2)){
-        CorCnt+=1;
-      }else{
-        continue label;
+      if (existsSameValue(box2)) {
+        CorCnt++;
       }
-      if(existsSameValue(box3)){
-        CorCnt+=1;
-      }else{
-        continue label;
+      if (existsSameValue(box3)) {
+        CorCnt++;
       }
 
       box1 = [];
       box2 = [];
-      box3 = [];  
+      box3 = [];
 
       stop_i += 3;
     }
 
-    if(CorCnt == 27){
+    if (CorCnt == 27) {
       flag = false;
-      console.log(through)
     }
-    if(cnt % 100 == 0){
-      console.log("cnt:",cnt,"CorCnt",CorCnt);
+    if (cnt % 10000 == 0) {
+      console.log("cnt:", cnt, "CorCnt", CorCnt);
     }
   }
-  console.log(can)
-  console.log("cnt",cnt)
-  // return can;
+
+  console.log(cnt)
+  console.log(problem)
 }
