@@ -7,118 +7,117 @@
   <link rel="stylesheet" href="style.css">
   <script src="KeyEvent.js"></script>
   <script src="CanDelete.js"></script>
-  <!-- <script src="jquery-2.1.4.min.js"></script> -->
-  <!-- <script src="jqscript.js"></script> -->
 </head>
 
 <body>
   <h1>Sudoku</h1>
-  <div id="task">
-    <table align="center">
-      <tr>
-        <td onclick="onclickTd(this)" id="target" id="output"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-      </tr>
-      <tr>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-      </tr>
-      <tr class="btm">
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-      </tr>
-      <tr>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-      </tr>
-      <tr>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-      </tr>
-      <tr class="btm">
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-      </tr>
-      <tr>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-      </tr>
-      <tr>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-      </tr>
-      <tr>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)" class="right"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-        <td onclick="onclickTd(this)"></td>
-      </tr>
-    </table>
+  <div id="main">
+    <div id="task">
+      <table align="center">
+        <tr>
+          <td onclick="onclickTd(this)" id="target" id="output"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+        </tr>
+        <tr>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+        </tr>
+        <tr class="btm">
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+        </tr>
+        <tr>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+        </tr>
+        <tr>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+        </tr>
+        <tr class="btm">
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+        </tr>
+        <tr>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+        </tr>
+        <tr>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+        </tr>
+        <tr>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)" class="right"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+          <td onclick="onclickTd(this)"></td>
+        </tr>
+      </table>
+    </div>
+    <div id = "button">
+      <input type="button" value="解く" id="btn" onclick="Solve()">
+    </div>
   </div>
-  <div id="button">
-    <input type="button" value="解く" onclick="Solve()">
-  </div>
-</body>
-
-</html>
+  </body>
+  </html>

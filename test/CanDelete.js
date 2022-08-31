@@ -1,3 +1,7 @@
+const button = document.getElementById('button')
+button.onclick = () => {
+  button.disabled = true;
+}
 function Solve() {
   // 問題の定義
   var problem = [
@@ -11,17 +15,6 @@ function Solve() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0]
   ]
-  const tr = document.querySelectorAll("tr");
-  for (let j = 0; j < 9; j++) {
-    for (let i = 0; i < 9; i++) {
-      var td = tr[i].children[j].textContent
-      if (td != null) {
-        problem[i][j] = Number(td);
-      }
-    }
-  }
-  console.log(problem)
-
   var problem = [
     [3, 8, 1, 2, 9, 5, 4, 7, 6],
     [6, 5, 2, 0, 4, 7, 0, 3, 9],
@@ -33,6 +26,16 @@ function Solve() {
     [5, 6, 3, 0, 0, 0, 9, 4, 7],
     [2, 1, 4, 9, 7, 6, 3, 8, 5]
   ]
+  // const tr = document.querySelectorAll("tr");
+  // for (let j = 0; j < 9; j++) {
+  //   for (let i = 0; i < 9; i++) {
+  //     var td = tr[i].children[j].textContent
+  //     if (td != null) {
+  //       problem[i][j] = Number(td);
+  //     }
+  //   }
+  // }
+  // console.log(problem)
 
   // 三次元配列の生成
   var can = [];
@@ -120,30 +123,35 @@ function Solve() {
     cnt += 1;
   }
 
-  // 横の削除
+  // 縦・横の削除
   var flag = true; //繰り返し用変数
   var cnt = 0; //探索回数を数える
   while (flag) {
     flag = false;
     for (let i = 0; i < 9; i++) {      //縦座標
       for (let j = 0; j < 9; j++) {    //横座標
-        for (let k = 0; k < 9; k++) {  //横一列
+        for (let k = 0; k < 9; k++) {  //一列(一行）
 
-          if (problem[i][j] == 0 && problem[i][k] != 0) {
-            var remove_num = can[i][j].indexOf(problem[i][k])
+          // 横の削除
+          if (problem[i][j] != 0 && typeof (can[i][k]) == "object") {
+            var remove_num = can[i][k].indexOf(problem[i][j])
             if (remove_num != -1) {
-              can[i][j].splice(remove_num, 1)
+              can[i][k].splice(remove_num, 1)
               flag = true;
+              break;
             }
           }
 
-          if (problem[j][i] == 0 && problem[k][j] != 0) {
-            var remove_num = can[j][i].indexOf(problem[k][i])
+          //縦の削除
+          if (problem[j][i] != 0 && typeof (can[k][i]) == "object") {
+            var remove_num = can[k][i].indexOf(problem[j][i])
             if (remove_num != -1) {
-              can[j][i].splice(remove_num, 1)
+              can[k][i].splice(remove_num, 1)
               flag = true;
+              break;
             }
           }
+
 
           if (problem[i][j] == 0 && can[i][j].length == 1) {
             can[i][j] = can[i][j][0]
@@ -154,30 +162,42 @@ function Solve() {
     }
 
   }
-  // console.log(can)
-  RandomSearch(can);
+  console.log(can)
+
+  problem = RandomSearch(can, problem);
+
+  const tr_in = document.querySelectorAll("tr");
+  for (let j = 0; j < 9; j++) {
+    for (let i = 0; i < 9; i++) {
+      var td = tr_in[i].children[j]
+      if (td != null) {
+        td.textContent = problem[i][j]
+      }
+    }
+  }
 }
 
 // 重複チェック
 // 参照:https://pisuke-code.com/js-check-duplicated-array-values/
-function existsSameValue(a){
+function existsSameValue(a) {
   var s = new Set(a);
-  return s.size != a.length;
+  return s.size == a.length;
 }
-//重複があるとtrueを返す
+//重複がないとtrueを返す
 
 // 一つに絞れない場合、乱数で探す
-function RandomSearch(can){
+function RandomSearch(can, problem) {
   var flag = true;
   var cnt = 0;
-  label:while(flag){
+  var result = [];
+  while (flag) {
     cnt += 1;
     // 候補がいくつかある場合、乱数で候補を決める
-    for(let i=0;i<9;i++){
-      for(let j=0;j<9;j++){
-        if(can[i][j].length != undefined){
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        if (can[i][j].length != undefined) {
           var idx = Math.floor(Math.random() * can[i][j].length)
-          can[i][j] = can[i][j][idx]
+          problem[i][j] = can[i][j][idx]
         }
       }
     }
@@ -185,78 +205,79 @@ function RandomSearch(can){
     var CorCnt = 0;
 
     //横の重複チェック
-    for(let i=0;i<9;i++){
-      if(existsSameValue(can[i])){
+    for (let i = 0; i < 9; i++) {
+      if (existsSameValue(problem[i])) {
         CorCnt += 1;
-      }else{
-        continue label;
       }
     }
 
     //縦の重複チェック
     var box = []
-    for(let i=0;i<9;i++){
-      for(let j=0;j<9;j++){
-        box.push(can[j][i])
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        box.push(problem[j][i])
       }
-      if(existsSameValue(box)){
+      if (existsSameValue(box)) {
         CorCnt += 1;
-      }else{
-        continue label;
-      }
+      } 
       box = [];
     }
 
+    // 3*3のブロックの重複チェック
     var start_i = 0;
     var stop_i = 3;
-    for(let bCnt=0;bCnt<3;bCnt++){
+    for (let bCnt = 0; bCnt < 3; bCnt++) {
       var box1 = [];
       var box2 = [];
       var box3 = [];
-      for(start_i;start_i<stop_i;start_i++){
-        for(let j=0;j<3;j++){
-          box1.push(can[start_i][j]);
+      for (start_i; start_i < stop_i; start_i++) {
+        for (let j = 0; j < 3; j++) {
+          box1.push(problem[start_i][j]);
         }
-        for(let j=3;j<6;j++){
-          box2.push(can[start_i][j]);
+        for (let j = 3; j < 6; j++) {
+          box2.push(problem[start_i][j]);
         }
-        for(let j=6;j<9;j++){
-          box3.push(can[start_i][j]);
+        for (let j = 6; j < 9; j++) {
+          box3.push(problem[start_i][j]);
         }
       }
 
-      if(existsSameValue(box1)){
-        CorCnt+=1;
-      }else{
-        continue label;
+      if (existsSameValue(box1)) {
+        CorCnt += 1;
       }
-      if(existsSameValue(box2)){
-        CorCnt+=1;
-      }else{
-        continue label;
+      if (existsSameValue(box2)) {
+        CorCnt += 1;
       }
-      if(existsSameValue(box3)){
-        CorCnt+=1;
-      }else{
-        continue label;
+      if (existsSameValue(box3)) {
+        CorCnt += 1;
       }
 
       box1 = [];
       box2 = [];
-      box3 = [];  
+      box3 = [];
 
       stop_i += 3;
     }
 
-    if(CorCnt == 27){
+    if (CorCnt == 27) {
       flag = false;
-      console.log(through)
     }
-    if(cnt % 100 == 0){
-      console.log("cnt:",cnt,"CorCnt",CorCnt);
-    }
+    // if(cnt % 100 == 0){
+    console.log("cnt:", cnt, "CorCnt", CorCnt);
+    // }
+    result.push(CorCnt)
+
+    // if (cnt > 9) {
+    //   break;
+    // }
   }
-  console.log(can)
-  console.log("cnt",cnt)
-  // return can;
+  console.log("result", result)
+  // var avg = 0;
+  // for (var i = 0; i < result.length; i++) {
+  //   avg += result[i];
+  // }
+  // avg /= result.length
+  // console.log(problem)
+  // console.log("cnt", cnt)
+  return problem;
 }
