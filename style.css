@@ -4,37 +4,12 @@ body {
   user-select: none;
   font-weight: 550;
 }
-
-#start {
-  text-align: center;
-  margin-top: 100px;
+#task{
+  float:left;
+  margin-left: 150px;
+  margin-top: -50px;
+  width:50%;
 }
-
-#rule {
-  width: 600px;
-  height: 680px;
-  margin: 0 auto;
-  position: absolute;
-  top: 20px;
-  text-align: center;
-  background-color: #fff;
-  border: #000 3px solid;
-}
-
-#rule br {
-  display: block;
-  content: "";
-  margin: 40px 0;
-}
-
-#rule button {
-  margin-top: 25px;
-}
-
-.no {
-  position: relative;
-}
-
 h1 {
   text-align: center;
   margin: 25px 0;
@@ -63,20 +38,11 @@ table td {
   border-right: 4px solid #000000;
 }
 
-.target {
+#target {
   background-color: #ffb3b3;
 }
 
-#btns {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#btns button {
-  width: 120px;
-}
-
-button {
+input {
   border: 3px solid #000;
   border-radius: 0;
   background: #fff;
@@ -84,57 +50,15 @@ button {
   height: 60px;
   font-size: 25px;
   transition: 0.3s;
-  margin: 0 20px;
+  display: block;
+  /* margin: 0 auto; */
+  margin-top:100px;
+  /* text-align: center; */
+  position:right;
   font-weight: bold;
 }
 
-button:hover {
+input:hover {
   color: #fff;
   background: #000;
-}
-
-.check {
-  /* 選択できないように */
-  pointer-events: none;
-}
-
-.checked {
-  background-color: rgb(123, 123, 123);
-  color: white;
-}
-
-.checked:hover {
-  background-color: rgb(123, 123, 123);
-}
-
-#task {
-  position: relative;
-}
-
-#cong {
-  width: 650px;
-  height: 50%;
-  position: absolute;
-  top: 150px;
-  border: #000 3px solid;
-  text-align: center;
-  background-color: #ffd700;
-}
-
-#cong button {
-  margin-top: 45px;
-}
-
-#diff {
-  width: 650px;
-  height: 50%;
-  position: absolute;
-  top: 150px;
-  border: #000 3px solid;
-  text-align: center;
-  background-color: #fff;
-}
-
-#diff button {
-  margin-top: 25px;
 }
