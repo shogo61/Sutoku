@@ -8,9 +8,8 @@
   <script src="KeyEvent.js"></script>
   <script src="CanDelete.js"></script>
 </head>
-
 <body>
-  <h1>Sudoku</h1>
+  <h1>数解</h1>
   <div id="main">
     <div id="task">
       <table align="center">
@@ -116,7 +115,10 @@
       </table>
     </div>
     <div id = "button">
-      <input type="button" value="解く" id="btn" onclick="Solve()">
+      <input type="button" value="解いて！" id="btn" onclick=Solve()>
+      
+      <input type="button" value="リセット" id = "reset" onclick=Reset()>
+
     </div>
   </div>
   </body>
