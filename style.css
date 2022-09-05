@@ -4,6 +4,41 @@ body {
   user-select: none;
   font-weight: 550;
 }
+#top{
+  display: flex;
+  /* margin: 0 auto; */
+  justify-content: center;
+}
+h2{
+  border:3px solid #000;
+  border-radius: 100%;
+  width:30px;
+  height:30px;
+  text-align: center;
+  margin-top: 60px;
+  margin-left: 5px;
+  padding-bottom: 3px;
+}
+#explain{
+  display: none;
+  width:700px;
+  height: 400px;
+  margin: 0 auto;
+  position:absolute;
+  top:20px;
+  background-color: #fff;
+  border:#000 3px solid;
+}
+#explain h1{
+  text-align: center;
+  font-size: 35px;
+}
+#explain input{
+  margin: 0 auto;
+}
+#explain p{
+  margin-left: 60px;
+}
 #task{
   float:left;
   margin-left: 150px;
