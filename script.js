@@ -1,3 +1,4 @@
+var flag = true; //繰り返し用変数（グローバル）
 function Solve() {
   // 連打防止
   document.getElementById("btn").disabled = true;
@@ -14,6 +15,17 @@ function Solve() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0]
   ]
+
+  // 問題を受け取る
+  const tr = document.querySelectorAll("tr");
+  for (let j = 0; j < 9; j++) {
+    for (let i = 0; i < 9; i++) {
+      var td = tr[i].children[j].textContent
+      if (td != null) {
+        problem[i][j] = Number(td);
+      }
+    }
+  }
   // テスト用
   // var problem = [
   //   [3, 8, 1, 2, 9, 5, 4, 7, 6],
@@ -26,15 +38,17 @@ function Solve() {
   //   [5, 6, 3, 0, 0, 0, 9, 4, 7],
   //   [2, 1, 4, 9, 7, 6, 3, 8, 5]
   // ]
-  const tr = document.querySelectorAll("tr");
-  for (let j = 0; j < 9; j++) {
-    for (let i = 0; i < 9; i++) {
-      var td = tr[i].children[j].textContent
-      if (td != null) {
-        problem[i][j] = Number(td);
-      }
-    }
-  }
+  var problem = [
+    [0, 5, 6, 2, 0, 0, 4, 3, 0],
+    [4, 0, 0, 0, 5, 0, 0, 1, 2],
+    [0, 2, 1, 8, 0, 0, 0, 0, 5],
+    [0, 0, 7, 0, 0, 0, 8, 0, 0],
+    [0, 6, 5, 9, 0, 4, 3, 2, 0],
+    [0, 0, 4, 0, 0, 0, 6, 0, 0],
+    [3, 0, 0, 0, 0, 7, 1, 9, 0],
+    [5, 1, 0, 0, 9, 0, 0, 0, 3],
+    [0, 7, 9, 0, 0, 2, 5, 8, 0]
+  ]
   // console.log(problem)
 
   // 三次元配列の生成
@@ -42,7 +56,7 @@ function Solve() {
   for (let i = 0; i < 9; i++) {
     can[i] = [];
     for (let j = 0; j < 9; j++) {
-      can[i][j] = []
+      can[i][j] = [1,2,3,4,5,6,7,8,9]
     }
   }
 
@@ -55,79 +69,13 @@ function Solve() {
     }
   }
   // console.log(can)
-  // ブロックごとの要素の削除
-  var cnt = 0
-  var start_i = 0
-  var stop_i = 3
-  const block_nums0 = [];
-  const block_nums1 = [];
-  const block_nums2 = [];
-  while (cnt < 3) {
-    const block_nums0 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    const block_nums1 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    const block_nums2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-    for (start_i; start_i < stop_i; start_i++) {
-      for (let j = 0; j < 3; j++) {
-        if (problem[start_i][j] != 0) {
-          var remove_idx = block_nums0.indexOf(problem[start_i][j])
-          if (remove_idx != -1) {
-            block_nums0.splice(remove_idx, 1);
-          }
-        }
-      }
-      for (let j = 3; j < 6; j++) {
-        if (problem[start_i][j] != 0) {
-          var remove_idx = block_nums1.indexOf(problem[start_i][j])
-          if (remove_idx != -1) {
-            block_nums1.splice(remove_idx, 1);
-          }
-        }
-      }
-      for (let j = 6; j < 9; j++) {
-        if (problem[start_i][j] != 0) {
-          var remove_idx = block_nums2.indexOf(problem[start_i][j])
-          if (remove_idx != -1) {
-            block_nums2.splice(remove_idx, 1);
-          }
-        }
-      }
-    }
-    // console.log(can)
-    start_i -= 3;
-    for (start_i; start_i < stop_i; start_i++) {
-      for (let j = 0; j < 3; j++) {
-        if (problem[start_i][j] == 0) {
-          for (let k = 0; k < block_nums0.length; k++) {
-            can[start_i][j].push(block_nums0[k])
-          }
-        }
-      }
-      for (let j = 3; j < 6; j++) {
-        if (problem[start_i][j] == 0) {
-          for (let k = 0; k < block_nums1.length; k++) {
-            can[start_i][j].push(block_nums1[k])
-          }
-        }
-      }
-      for (let j = 6; j < 9; j++) {
-        if (problem[start_i][j] == 0) {
-          for (let k = 0; k < block_nums2.length; k++) {
-            can[start_i][j].push(block_nums2[k])
-          }
-        }
-      }
-    }
-    stop_i += 3;
-    cnt += 1;
-  }
+  can = Block_del(can, problem)
 
   // 縦・横の削除
-  // 数字があれば候補から消す
-  var flag = true; //繰り返し用変数
-  var cnt = 0; //探索回数を数える
   while (flag) {
     flag = false;
+    // 数字があれば候補から消す
     for (let i = 0; i < 9; i++) {      //縦座標
       for (let j = 0; j < 9; j++) {    //横座標
         for (let k = 0; k < 9; k++) {  //一列(一行）
@@ -160,10 +108,12 @@ function Solve() {
         }
       }
     }
-
+    if (flag == false) {
+      can = Block_del(can, problem)
+    }
   }
-  console.log("can")
-  console.log(can)
+  // console.log("can")
+  // console.log(can)
   // 乱数を使って答えを探す
   // 答えが確定していたら一回で返ってくる
   problem = RandomSearch(can, problem);
@@ -183,11 +133,86 @@ function Solve() {
 }
 
 
+// ブロックごとの要素の削除
+function Block_del(can, problem) {
+  // bflag = false;
+  var bcnt = 0
+  var start_i = 0
+  var stop_i = 3
+  // const block_nums0 = [];
+  // const block_nums1 = [];
+  // const block_nums2 = [];
+  while (bcnt < 3) {
+    // const ten = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const block_nums0 = [];
+    const block_nums1 = [];
+    const block_nums2 = [];
+    // var bflag = false;
+    for (start_i; start_i < stop_i; start_i++) {
+      for (let j = 0; j < 3; j++) {
+        if (problem[start_i][j] != 0) {
+          block_nums0.push(problem[start_i][j])
+        }
+      }
+      for (let j = 3; j < 6; j++) {
+        if (problem[start_i][j] != 0) {
+          block_nums1.push(problem[start_i][j])
+        }
+      }
+      for (let j = 6; j < 9; j++) {
+        if (problem[start_i][j] != 0) {
+          block_nums2.push(problem[start_i][j])
+        }
+      }
+    }
+    // console.log(can)
+    start_i -= 3;
+    for (start_i; start_i < stop_i; start_i++) {
+      for (let j = 0; j < 3; j++) {
+        if (problem[start_i][j] == 0) {
+          for (let k = 0; k < block_nums0.length; k++) {
+            var remove_num = can[start_i][j].indexOf(block_nums0[k])
+            if (remove_num != -1) {
+              can[start_i][j].splice(remove_num, 1)
+              flag = true;
+            }
+          }
+        }
+      }
+      for (let j = 3; j < 6; j++) {
+        if (problem[start_i][j] == 0) {
+          for (let k = 0; k < block_nums1.length; k++) {
+            var remove_num = can[start_i][j].indexOf(block_nums1[k])
+            if (remove_num != -1) {
+              can[start_i][j].splice(remove_num, 1)
+              flag = true;
+            }
+          }
+        }
+      }
+      for (let j = 6; j < 9; j++) {
+        if (problem[start_i][j] == 0) {
+          for (let k = 0; k < block_nums2.length; k++) {
+            var remove_num = can[start_i][j].indexOf(block_nums2[k])
+            if (remove_num != -1) {
+              can[start_i][j].splice(remove_num, 1)
+              flag = true;
+            }
+          }
+        }
+      }
+    }
+    stop_i += 3;
+    bcnt += 1;
+  }
+  return can;
+}
+
 // 一つに絞れない場合、乱数で探す
 function RandomSearch(can, problem) {
   var flag = true;
   var cnt = 0;
-  var result = [];
+  // var result = [];
   while (flag) {
     cnt += 1;
     // 候補がいくつかある場合、乱数で候補を決める
@@ -280,7 +305,7 @@ function RandomSearch(can, problem) {
     alert("答えが見つかりませんでした。。。")
   }
 
-  
+
 }
 
 // リセット
@@ -309,11 +334,18 @@ function ExistsSameValue(a) {
 
 // 利用方法表示
 function Explain() {
-  document.getElementById("explain").style.display = "block";
+  var explain = document.getElementById("explain");
+  explain.animate([{ opacity: '0' }, { opacity: '1' }], 200)
+  explain.style.display = "block";
+
 }
 // 利用方法を閉じる
-function Close() {
-  document.getElementById("explain").style.display = "none";
+async function Close() {
+  const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  var explain = document.getElementById("explain");
+  explain.animate([{ opacity: '1' }, { opacity: '0' }], 200)
+  await _sleep(200)
+  explain.style.display = "none";
 }
 
 //idの付与・削除
