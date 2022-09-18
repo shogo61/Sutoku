@@ -22,12 +22,13 @@ h2{
 #explain{
   display: none;
   width:700px;
-  height: 400px;
+  height: 440px;
   margin: 0 auto;
   position:absolute;
   top:20px;
   background-color: #fff;
   border:#000 3px solid;
+  transition: 3.0s;
 }
 #explain h1{
   text-align: center;
