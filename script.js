@@ -38,17 +38,18 @@ function Solve() {
   //   [5, 6, 3, 0, 0, 0, 9, 4, 7],
   //   [2, 1, 4, 9, 7, 6, 3, 8, 5]
   // ]
-//   var problem = [
-//     [0, 5, 6, 2, 0, 0, 4, 3, 0],
-//     [4, 0, 0, 0, 5, 0, 0, 1, 2],
-//     [0, 2, 1, 8, 0, 0, 0, 0, 5],
-//     [0, 0, 7, 0, 0, 0, 8, 0, 0],
-//     [0, 6, 5, 9, 0, 4, 3, 2, 0],
-//     [0, 0, 4, 0, 0, 0, 6, 0, 0],
-//     [3, 0, 0, 0, 0, 7, 1, 9, 0],
-//     [5, 1, 0, 0, 9, 0, 0, 0, 3],
-//     [0, 7, 9, 0, 0, 2, 5, 8, 0]
-//   ]
+  // テスト用２（答え見つからない）
+  // var problem = [
+  //   [7, 1, 0, 0, 0, 0, 0, 6, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 9],
+  //   [0, 8, 0, 0, 5, 3, 0, 0, 1],
+  //   [0, 0, 2, 1, 3, 0, 0, 5, 7],
+  //   [3, 9, 0, 0, 0, 0, 0, 1, 2],
+  //   [8, 7, 0, 0, 6, 2, 4, 0, 0],
+  //   [6, 0, 0, 7, 8, 0, 0, 2, 0],
+  //   [1, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 2, 0, 0, 0, 0, 0, 3, 6]
+  // ]
   // console.log(problem)
 
   // 三次元配列の生成
@@ -56,7 +57,7 @@ function Solve() {
   for (let i = 0; i < 9; i++) {
     can[i] = [];
     for (let j = 0; j < 9; j++) {
-      can[i][j] = [1,2,3,4,5,6,7,8,9]
+      can[i][j] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     }
   }
 
@@ -128,6 +129,16 @@ function Solve() {
       }
     }
   }
+  for (let j = 0; j < 9; j++) {
+    for (let i = 0; i < 9; i++) {
+      var td = tr_in[i].children[j]
+      if (td != null && typeof(can[i][j]) == 'number') {
+        td.textContent = can[i][j]
+      }else if(typeof(problem[i][j]) == 'object'){
+        td.textContent = ''
+      }
+    }
+  }
   // 答えをコンソールに出力
   console.log(problem);
 }
@@ -139,15 +150,10 @@ function Block_del(can, problem) {
   var bcnt = 0
   var start_i = 0
   var stop_i = 3
-  // const block_nums0 = [];
-  // const block_nums1 = [];
-  // const block_nums2 = [];
   while (bcnt < 3) {
-    // const ten = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     const block_nums0 = [];
     const block_nums1 = [];
     const block_nums2 = [];
-    // var bflag = false;
     for (start_i; start_i < stop_i; start_i++) {
       for (let j = 0; j < 3; j++) {
         if (problem[start_i][j] != 0) {
@@ -205,6 +211,7 @@ function Block_del(can, problem) {
     stop_i += 3;
     bcnt += 1;
   }
+  console.log(can)
   return can;
 }
 
@@ -303,9 +310,8 @@ function RandomSearch(can, problem) {
     return problem;
   } else {
     alert("答えが見つかりませんでした。。。")
+    return can
   }
-
-
 }
 
 // リセット
@@ -347,6 +353,8 @@ async function Close() {
   await _sleep(200)
   explain.style.display = "none";
 }
+
+
 
 //idの付与・削除
 function OnclickTd(td) {
