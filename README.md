@@ -4,7 +4,7 @@
 
 ↓無料サーバーで公開しています
 
-shogo61.html.xdomain.jp
+http://shogo61.html.xdomain.jp
 
 ChromeかSafariでご利用ください（プライベートモードだと利用できない可能性があります）
 
