@@ -2,10 +2,6 @@
 
 数独の問題を解くプログラムSutoku
 
-↓無料サーバーで公開しています
-
-http://shogo61.html.xdomain.jp
-
 ChromeかSafariでご利用ください（プライベートモードだと利用できない可能性があります）
 
 概要
